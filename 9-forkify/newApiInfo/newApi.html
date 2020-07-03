@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link type="text/css" href="newApiStyles.css" rel="stylesheet">
+
+        <title>Document</title>
+    </head>
+    <body>
+        
+
+        <div class="text-viewer--content--3hoqQ">
+            <div class="a1 mb-space-md">
+                PLEASE READ: Changes to the Project API
+            </div>
+            <div class="p-space-md">
+                <div class="article-asset--content--1dAQ9">
+                    <p>
+                        <strong>👉 </strong>In the next lecture, I&nbsp;will
+                        introduce the <strong>food2fork</strong> API, which I
+                        use to build the project in this section.
+                    </p>
+                    <p>
+                        However, as of November 30th, this API unfortunately no
+                        longer works. I&nbsp;decided to build my own API based
+                        on the food2fork API, which is simply called
+                        <strong>forkify-api</strong>.
+                    </p>
+                    <p>
+                        <strong
+                            ><em
+                                >This is the API that you should use to build
+                                the project in this section (I use the original
+                                food2fork API in the videos). Don't worry,
+                                everything will work almost exactly as in the
+                                videos!</em
+                            ></strong
+                        >
+                    </p>
+                    <p>
+                        So, most of the information in the next video is still
+                        relevant because the <code>forkify-api</code> works
+                        almost exactly as <code>food2fork</code>, so please just
+                        follow the next video, and of course the rest of the
+                        project.
+                    </p>
+                    <p><br /></p>
+                    <p>
+                        <strong>👉 </strong>Here are the 3 things that you need
+                        to know about <code>forkify-api</code> which are
+                        <strong>DIFFERENT</strong> from the
+                        <code>food2fork</code> API in the videos:
+                    </p>
+                    <p><strong>1)</strong> No API key is required;</p>
+                    <p><strong>2)</strong> No proxy is required;</p>
+                    <p>
+                        <strong>3)</strong> The URL is
+                        <a
+                            href="http://forkify-api.herokuapp.com"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                            >forkify-api.herokuapp.com</a
+                        >
+                        (click for basic documentation).
+                    </p>
+                    <p><br /></p>
+                    <p>
+                        <strong>👉 This is how you use </strong
+                        ><code><strong>forkify-api</strong></code
+                        ><strong> instead of the </strong
+                        ><code><strong>food2fork</strong></code
+                        ><strong> API.</strong>
+                    </p>
+                    <p>
+                        In the <code>Search.js</code> file (as soon as you get
+                        there), just replace:
+                    </p>
+                    <div
+                        class="ud-component--base-components--code-block"
+                        ng-non-bindable=""
+                    >
+                        <div>
+                            <pre
+                                class="prettyprint linenums prettyprinted"
+                                role="presentation"
+                                style=""
+                            ><ol class="linenums"><li class="L0"><span class="kwd">const</span><span class="pln">&nbsp;res&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;await&nbsp;axios</span><span class="pun">(</span><span class="str">`${PROXY}http://food2fork.com/api/search?key=${KEY}&amp;q=${this.query}`</span><span class="pun">);</span></li></ol></pre>
+                        </div>
+                    </div>
+                    <p>with this:</p>
+                    <div
+                        class="ud-component--base-components--code-block"
+                        ng-non-bindable=""
+                    >
+                        <div>
+                            <pre
+                                class="prettyprint linenums prettyprinted"
+                                role="presentation"
+                                style=""
+                            ><ol class="linenums"><li class="L0"><span class="kwd">const</span><span class="pln">&nbsp;res&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;await&nbsp;axios</span><span class="pun">(</span><span class="str">`https://forkify-api.herokuapp.com/api/search?&amp;q=${this.query}`</span><span class="pun">);</span></li></ol></pre>
+                        </div>
+                    </div>
+                    <p><br /></p>
+                    <p>
+                        Then, in <code>Recipe.js</code> (as soon as you get
+                        there), please replace:
+                    </p>
+                    <div
+                        class="ud-component--base-components--code-block"
+                        ng-non-bindable=""
+                    >
+                        <div>
+                            <pre
+                                class="prettyprint linenums prettyprinted"
+                                role="presentation"
+                                style=""
+                            ><ol class="linenums"><li class="L0"><span class="kwd">const</span><span class="pln">&nbsp;res&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;await&nbsp;axios</span><span class="pun">(</span><span class="str">`${PROXY}http://food2fork.com/api/get?key=${KEY}&amp;rId=${this.id}`</span><span class="pun">);</span></li></ol></pre>
+                        </div>
+                    </div>
+                    <p>with this:</p>
+                    <div
+                        class="ud-component--base-components--code-block"
+                        ng-non-bindable=""
+                    >
+                        <div>
+                            <pre
+                                class="prettyprint linenums prettyprinted"
+                                role="presentation"
+                                style=""
+                            ><ol class="linenums"><li class="L0"><span class="kwd">const</span><span class="pln">&nbsp;res&nbsp;</span><span class="pun">=</span><span class="pln">&nbsp;await&nbsp;axios</span><span class="pun">(</span><span class="str">`https://forkify-api.herokuapp.com/api/get?rId=${this.id}`</span><span class="pun">);</span></li></ol></pre>
+                        </div>
+                    </div>
+                    <p><br /></p>
+                    <p>
+                        <strong>👉 </strong>That's it, that's all you need to
+                        know. Again,
+                        <strong
+                            >make these changes as you go through the
+                            projects</strong
+                        >. For now, just keep following the videos. And now,
+                        have fun with the project 😘
+                    </p>
+                </div>
+            </div>
+            <div class="mt-space-sm"></div>
+        </div>
+    
+    
+    
+    </body>
+</html>

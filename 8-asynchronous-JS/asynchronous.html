@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Asynchronous JavaScript</title>
+</head>
+<body>
+    <h1>Asynchronous JavaScript</h1>
+    <script>
+        
+        // Using the 'Modify Headres' as chrome extension
+        // Response Headers -> Name: Access-Control-Allow-Origin and Value: *
+        // fetch('https://www.metaweather.com/api/location/2487956/');
+
+        // Workaround for CORS headers
+        // fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/2487956/`);
+
+
+        // Calculate the weather of a given city name
+        // Placed on top, just to see the asyncronous in action
+        const getWeatherByName = async name => {
+            try {
+                const reqName = await fetch(`https://www.metaweather.com/api/location/search/?query=${name}`);
+                const dataName = await reqName.json();
+                if (dataName.length === 0) {
+                    alert('Not found any results !!! Try other search!');
+                    return;
+                }
+                let strNames = 'Choose a city name from options:\n';
+                dataName.forEach((value, index) => {
+                    strNames += `${index} -> ${value.title}\n`;
+                });
+                const selected = parseInt(prompt(strNames));
+                let woeid;
+                if (selected >= 0 && selected < dataName.length) {
+                    woeid = dataName[selected].woeid;
+                } else {
+                    alert('Wrong selection! Try Again!');
+                    return;
+                }
+                // console.log(woeid);
+                // console.log(selected);
+                // console.log(dataName);
+                
+                const result = await fetch(`https://www.metaweather.com/api/location/${woeid}/`);
+                const data = await result.json();
+                const tomorrow = data.consolidated_weather[1];
+                console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}.`);
+
+                return data;
+            } catch (error) {
+                alert(error);
+            }
+        }
+        getWeatherByName(prompt('Enter a city name:'))
+        .then(data => {
+            // console.log('Prompt Data-> ', data);
+        });
+
+
+
+        const getWeather = woeid => {
+            // Workaround for CORS headers
+            fetch(`https://www.metaweather.com/api/location/${woeid}/`)
+            .then(result => {
+                // console.log(result);
+                return result.json();
+            })
+            .then(data => {
+                // console.log(data);
+                const today = data.consolidated_weather[0];
+                console.log(`Temperatures today in ${data.title} stay between ${today.min_temp} and ${today.max_temp}.`);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        getWeather(2487956);
+        getWeather(44418);
+
+        const getWeatherAW = async woeid => {
+            try {
+                const result = await fetch(`https://www.metaweather.com/api/location/${woeid}/`);
+                const data = await result.json();
+                const tomorrow = data.consolidated_weather[1];
+                console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}.`);
+                return data;
+            } catch (error) {
+                alert(error);
+            }
+        }
+        getWeatherAW(2487956);
+        let dataLondon;
+        getWeatherAW(44418).then(data => {
+            dataLondon = data;
+            // console.log(dataLondon);
+        });
+
+        console.log('PASSED!');
+
+
+    </script>
+</body>
+</html>
